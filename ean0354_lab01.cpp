@@ -29,8 +29,7 @@ void concatenatePath(char *path , const char *dir_name, struct dirent *dirent) {
 // calculate size of file
 int calculateSize(std::string path) {
     // opening file stream
-    std::ifstream ist;
-    ist.open(path);
+    std::ifstream ist{path};
 
     // checking if the file exist or not
     if (!ist) {
