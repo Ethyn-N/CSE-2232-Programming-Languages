@@ -57,8 +57,8 @@ int dirSize(const char *dir_name) {
     
     // Opens directory stream
     DIR *dir = opendir(dir_name);
-    if (dir == NULL) {
-        return -1;
+    if (!dir) {
+        return 0;
     }
 
     struct dirent *dirent;
