@@ -3,6 +3,8 @@
 // Java
 // linux ubuntu
 
+// Omega: javac ean0354_lab01.java
+
 import java.io.File;
 
 public class ean0354_lab01 {
@@ -25,9 +27,7 @@ public class ean0354_lab01 {
     public static void main(String[] args) {
         ean0354_lab01 lab = new ean0354_lab01(); // Class instance
 
-        File file = new File(".");
- 
-        int bytes = lab.dirSize(file); // Total amount of directory size in bytes
+        int bytes = lab.dirSize(new File(".")); // Total amount of directory size in bytes
  
         System.out.println(bytes);
     }

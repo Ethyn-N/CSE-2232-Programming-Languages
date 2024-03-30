@@ -9,21 +9,8 @@
 
 #define MAX_LENGTH 500
 
-void concatenatePath(char *path , const char *dir_name, struct dirent *dirent);
 int calculateSize(char path[]);
 int dirSize(const char *dir_name);
-
-void concatenatePath(char *path , const char *dir_name, struct dirent *dirent) {
-// Input: char *path - stores the directory path of where the file is
-//        const char *dir_name - parent directory
-//        struct dirent *dirent - struct that holds name of file of interest
-// Output: void. Returns the path to file within directory that can be used with fopen
-// Processing: (O(1) time).
-
-    strcpy(path, dir_name);
-    strcat(path, "/");
-    strcat(path, dirent->d_name);
-}
 
 // calculate size of file
 int calculateSize(char path[]) {
@@ -52,7 +39,7 @@ int dirSize(const char *dir_name) {
 // Output: int. Returns the total size in bytes of all files in the current directory / folder and all sub-folders
 // Processing: (O(log(n)) time).
 
-    float total_size = 0;
+    int total_size = 0;
     char path[MAX_LENGTH];
     
     // Opens directory stream
@@ -66,7 +53,10 @@ int dirSize(const char *dir_name) {
     // Continues to loop until end of directory
     while ((dirent = readdir(dir)) != NULL) {
         if (strcmp(dirent->d_name, ".") != 0 && strcmp(dirent->d_name, "..") != 0) { // If directory is not itself
-            concatenatePath(path, dir_name, dirent);
+            strcpy(path, dir_name); 
+            strcat(path, "/");
+            strcat(path, dirent->d_name);
+
             if (dirent->d_type == DT_DIR) 
                 total_size += dirSize(path); // Recursively go through each directory
             else
@@ -86,3 +76,13 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+// 1) Out of all the languages, Python was the easiest and fastest in writing the code. 
+//    Since Python is an interpreted language, not much is needed for the interpreter to understand what the program is trying to do. 
+//    With the built-in modules and easy readability Python provides, I had the least hassle writing the program compared to the other two languages.
+
+// 2) An alternative to using recursion would be the use of an iterative function. 
+//    I would use an iterative procedure to iterate over files for a directory. 
+//    However, the limitation of this approach is that I would need to call this function multiple times 
+//    non-recursively any time there is another directory within a directory. 
+//    Ultimately, I would have to summarize the results of all the function calls.
